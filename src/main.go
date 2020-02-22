@@ -59,21 +59,7 @@ func sendMail(toEmail string, subject string, body string) {
 	Receiver := []string{toEmail}
 
 	Subject := subject
-	message := fmt.Fprintf(`
-	<!DOCTYPE HTML PULBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-	<html>
-	<head>
-	<meta http-equiv="content-type" content="text/html"; charset=ISO-8859-1">
-	</head>
-	<body>%v<br>
-	<div class="moz-signature"><i><br>
-	<br>
-	Regards<br>
-	Study Money<br>
-	<i></div>
-	</body>
-	</html>
-	`, body)
+	message := "<!DOCTYPE HTML><html><head><meta http-equiv='content-type' content='text/html'; charset=ISO-8859-1></head><body>" + body + "<br><div class='moz-signature'><i><br><br>Regards<br>Study Money<br><i></div></body></html>"
 	bodyMessage := sender.WriteHTMLEmail(Receiver, Subject, message)
 
 	sender.SendMail(Receiver, Subject, bodyMessage)

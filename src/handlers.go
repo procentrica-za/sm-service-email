@@ -93,10 +93,7 @@ func (sender *Sender) WritePlainEmail(dest []string, subject, bodyMessage string
 
 func (s *Server) handleforgotpassword() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		//wait for JSON objects on its own port
-		http.ListenAndServe(":"+config.EMAILPort, nil)
-
+		fmt.Println("Handle forgot password Has Been Called in the email service")
 		forgotPassword := ForgotPasswordEmail{}
 
 		// convert received JSON payload into the declared struct.
