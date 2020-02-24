@@ -107,12 +107,28 @@ func (s *Server) handleforgotpassword() http.HandlerFunc {
 		}
 
 		//send variables to sendMail function
-		sendMail(forgotPassword.ToEmail, forgotPassword.Subject, forgotPassword.Body)
+		sendMail(forgotPassword.ToEmail, forgotPassword.Subject, forgotPassword.Password)
+
+		var emailResponse EmailResult
+
+		if forgotPassword.Message == "A new password cannot be granted at this time as an appropriate email address has not been provided" {
+			emailResponse.Message = "Unable to send email as an incorrect email address has been provided"
+		} else {
+			emailResponse.Message = forgotPassword.Message
+		}
+
+		//convert struct back to JSON
+		js, jserr := json.Marshal(emailResponse)
+		if jserr != nil {
+			w.WriteHeader(500)
+			fmt.Fprint(w, jserr.Error())
+			fmt.Println("Error occured when trying to marshal the response to get user")
+			return
+		}
 
 		//return back to Front-End user
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(200)
-
+		w.Write(js)
 	}
-
 }

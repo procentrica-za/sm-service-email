@@ -3,15 +3,16 @@ package main
 import "github.com/gorilla/mux"
 
 //create structs for JSON objects recieved and responses
-type ForgotPasswordResult struct {
-	Email    string `json:"email"`
+
+type ForgotPasswordEmail struct {
+	ToEmail  string `json:"toemail"`
+	Subject  string `json:"subject"`
 	Password string `json:"password"`
 	Message  string `json:"message"`
 }
-type ForgotPasswordEmail struct {
-	ToEmail string `json:"toemail"`
-	Subject string `json:"subject"`
-	Body    string `json:"body"`
+
+type EmailResult struct {
+	Message string `json:"message"`
 }
 
 //touter service struct

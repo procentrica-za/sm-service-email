@@ -52,14 +52,14 @@ func removeTrailingSlash(next http.Handler) http.Handler {
 	})
 }
 
-func sendMail(toEmail string, subject string, body string) {
+func sendMail(toEmail string, subject string, password string) {
 	sender := NewSender("studymoneygradproject@gmail.com", "Studymoney123")
 
 	//The receiver needs to be in slice as the receive supports multiple receiver
 	Receiver := []string{toEmail}
 
 	Subject := subject
-	message := "<!DOCTYPE HTML><html><head><meta http-equiv='content-type' content='text/html'; charset=ISO-8859-1></head><body>" + body + "<br><div class='moz-signature'><i><br><br>Regards<br>Study Money<br><i></div></body></html>"
+	message := "<!DOCTYPE HTML><html><head><meta http-equiv='content-type' content='text/html'; charset=ISO-8859-1></head><body>" + password + "<br><div class='moz-signature'><i><br><br>Regards<br>Study Money<br><i></div></body></html>"
 	bodyMessage := sender.WriteHTMLEmail(Receiver, Subject, message)
 
 	sender.SendMail(Receiver, Subject, bodyMessage)
