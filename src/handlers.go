@@ -11,9 +11,7 @@ import (
 )
 
 const (
-	/**
-		Gmail SMTP Server
-	**/
+	//Gmail SMTP Server
 	SMTPServer = "smtp.gmail.com"
 )
 
@@ -27,6 +25,7 @@ func NewSender(Username, Password string) Sender {
 	return Sender{Username, Password}
 }
 
+//Compile mail to send to user
 func (sender Sender) SendMail(Dest []string, Subject, bodyMessage string) {
 
 	msg := "From: " + sender.User + "\n" +
@@ -46,8 +45,10 @@ func (sender Sender) SendMail(Dest []string, Subject, bodyMessage string) {
 	fmt.Println("Mail sent successfully!")
 }
 
+//Write email contents
 func (sender Sender) WriteEmail(dest []string, contentType, subject, bodyMessage string) string {
 
+	//Email header
 	header := make(map[string]string)
 	header["From"] = sender.User
 
@@ -81,11 +82,13 @@ func (sender Sender) WriteEmail(dest []string, contentType, subject, bodyMessage
 	return message
 }
 
+//Write Email in HTML
 func (sender *Sender) WriteHTMLEmail(dest []string, subject, bodyMessage string) string {
 
 	return sender.WriteEmail(dest, "text/html", subject, bodyMessage)
 }
 
+//Write Email in Plain text
 func (sender *Sender) WritePlainEmail(dest []string, subject, bodyMessage string) string {
 
 	return sender.WriteEmail(dest, "text/plain", subject, bodyMessage)
@@ -96,7 +99,7 @@ func (s *Server) handleforgotpassword() http.HandlerFunc {
 		fmt.Println("Handle forgot password Has Been Called in the email service")
 		forgotPassword := ForgotPasswordEmail{}
 
-		// convert received JSON payload into the declared struct.
+		// convert received JSON payload into the declared struct with response from user manager
 		err := json.NewDecoder(r.Body).Decode(&forgotPassword)
 
 		//check for errors when converting JSON payload into struct.
@@ -108,7 +111,7 @@ func (s *Server) handleforgotpassword() http.HandlerFunc {
 
 		//send variables to sendMail function
 		sendMail(forgotPassword.ToEmail, forgotPassword.Subject, forgotPassword.Password)
-
+		//Compile result to send back to user
 		var emailResponse EmailResult
 
 		if forgotPassword.Message == "A new password cannot be granted at this time as an appropriate email address has not been provided" {
