@@ -82,7 +82,7 @@ func (sender Sender) WriteEmail(dest []string, contentType, subject, bodyMessage
 	return message
 }
 
-//Write Email in HTML
+//Write Email in HTML.
 func (sender *Sender) WriteHTMLEmail(dest []string, subject, bodyMessage string) string {
 
 	return sender.WriteEmail(dest, "text/html", subject, bodyMessage)
