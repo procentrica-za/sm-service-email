@@ -26,7 +26,7 @@ func init() {
 func CreateConfig() Config {
 	conf := Config{
 		USERMANAGERHost: os.Getenv("USERMANAGER_Host"),
-		USERMANAGERPort: os.Getenv("USERMANAGER_Port"),
+		USERMANAGERPort: os.Getenv("USERMANAGER_PORT"),
 		EMAILHost:       os.Getenv("EMAIL_Host"),
 		EMAILPort:       os.Getenv("EMAIL_PORT"),
 	}
